@@ -1,4 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+import React, {
+  //  Component, useEffect, useState 
+  } from "react";
 
 export default function UserHome({ userData }) {
   const logOut = () => {
@@ -9,8 +11,9 @@ export default function UserHome({ userData }) {
     <div className="auth-wrapper">
       <div className="auth-inner">
         <div>
-          Name<h1>{userData.fname}</h1>
-          Email <h1>{userData.email}</h1>
+          {/* Name<h1>{userData.fname}</h1>
+          Email <h1>{userData.email}</h1> */}
+          <h1>User page   </h1>
           <br />
           <button onClick={logOut} className="btn btn-primary">
             Log Out
