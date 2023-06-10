@@ -1,4 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { 
+  // Component, 
+  useEffect, useState } from "react";
 import AdminHome from "./adminHome";
 
 import UserHome from "./userHome";
@@ -23,13 +25,13 @@ export default function UserDetails() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userData");
-        if (data.data.userType == "Admin") {
+        if (data.data.userType === "Admin") {
           setAdmin(true);
         }
 
         setUserData(data.data);
 
-        if (data.data == "token expired") {
+        if (data.data === "token expired") {
           alert("Token expired login again");
           window.localStorage.clear();
           window.location.href = "./sign-in";
