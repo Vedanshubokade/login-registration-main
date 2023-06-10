@@ -1,37 +1,55 @@
-import React, { Component, useState } from "react";
-
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
 
+  const baseUrl = "http://localhost:4000";
+  const authUrl = "auth/signIn"
+  const authLogin = "auth/login"
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(email, password);
-    fetch("http://localhost:5000/login-user", {
-      method: "POST",
-      crossDomain: true,
+    console.log(email, password , role);
+    console.log(typeof role);
+    fetch(`${baseUrl}/${authUrl}`, {
+      method : "Post",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        email,
-        password,
+        username: email,
+        password: password,
+        role:role
+        
       }),
+      
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status == "ok") {
-          alert("login successful");
-          window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", true);
-
-          window.location.href = "./userDetails";
+      .then((res) => {
+        if (res.status === 401) {
+          alert(`you are not the ${role}`)
+        }else{
+          return res.json()
         }
-      });
+        
+      })
+      .then((data) => {
+        console.log(data._doc.role);
+        if (data._doc.role === 'user') {
+          navigate('/user');
+        } else if (data._doc.role === 'admin') {
+          navigate('/admin');
+        }
+        
+      })
+      .catch((error) => {
+        console.error(error);
+        
+       
+      })
+      
   }
 
   return (
@@ -58,6 +76,18 @@ export default function Login() {
               placeholder="Enter password"
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+
+          <div className="mb-3">
+            <label>Role</label>
+            <select
+              className="form-control"
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="">Select Role</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
 
           <div className="mb-3">
