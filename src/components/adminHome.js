@@ -1,4 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { 
+  // Component, 
+  useEffect, useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactPaginate from 'react-paginate';
@@ -15,8 +17,8 @@ export default function AdminHome({ userData }) {
 
   useEffect(() => {
     currentPage.current=1;
-    // getAllUser();
-    getPaginatedUsers();
+    getAllUser();
+    // getPaginatedUsers();
   }, []);
 
 
@@ -69,9 +71,7 @@ export default function AdminHome({ userData }) {
   function handlePageClick(e) {
     console.log(e);
    currentPage.current=e.selected+1;
-    getPaginatedUsers();
-   
-
+    // getPaginatedUsers();
   }
   function changeLimit(){
     currentPage.current=1;

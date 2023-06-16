@@ -1,4 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { 
+  // Component, 
+  useState } from "react";
 
 export default function SignUp() {
   const [fname, setFname] = useState("");
@@ -9,7 +11,7 @@ export default function SignUp() {
   const [secretKey, setSecretKey] = useState("");
 
   const handleSubmit = (e) => {
-    if (userType == "Admin" && secretKey != "AdarshT") {
+    if (userType === "Admin" && secretKey !== "AdarshT") {
       e.preventDefault();
       alert("Invalid Admin");
     } else {
@@ -35,7 +37,7 @@ export default function SignUp() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data, "userRegister");
-          if (data.status == "ok") {
+          if (data.status === "ok") {
             alert("Registration Successful");
           } else {
             alert("Something went wrong");
@@ -66,7 +68,7 @@ export default function SignUp() {
             />
             Admin
           </div>
-          {userType == "Admin" ? (
+          {userType === "Admin" ? (
             <div className="mb-3">
               <label>Secret Key</label>
               <input
